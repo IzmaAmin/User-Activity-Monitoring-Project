@@ -1,0 +1,314 @@
+<!-- ========================================
+     POM.XML - PROJECT OBJECT MODEL
+     Purpose: Maven configuration file
+     Role: Tells Maven how to build the project
+     Maven is a build automation tool for Java
+     ======================================== -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <!-- ======================================== 
+         MODEL VERSION & PROJECT IDENTIFICATION
+         modelVersion: Format of this POM file (always 4.0.0 for Maven 3+)
+         groupId: Company/organization name (like namespace)
+         artifactId: Project name
+         version: Release number (1.0-SNAPSHOT means version 1.0 in development)
+         packaging: Output format (jar = single executable file)
+         ======================================== -->
+    
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.monitoring</groupId>
+    <artifactId>UserActivityMonitoringSystem</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    
+    <!-- ======================================== 
+         PROJECT PROPERTIES
+         Properties are like variables - you define them once and use everywhere
+         Format: <propertyName>value</propertyName>
+         Usage: ${propertyName} to reference anywhere
+         ======================================== -->
+    
+    <properties>
+        <!-- UTF-8 encoding: Standard text encoding for source code -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
+        <!-- COMPILER SOURCE VERSION: 21 (Java source file version)
+             Java 21 is the latest LTS (Long Term Support) release
+             LTS means it will be supported for many years (10 years for Java 21) -->
+        <maven.compiler.source>21</maven.compiler.source>
+        
+        <!-- COMPILER TARGET VERSION: 21 (Java bytecode target version)
+             Target = what JVM version can run the compiled code
+             If you compile with target 21, you need JRE 21 or higher to run -->
+        <maven.compiler.target>21</maven.compiler.target>
+        
+        <!-- JAVAFX VERSION: 21.0.2
+             JavaFX = library for creating GUI (graphical user interfaces)
+             Version 21.0.2 matches Java 21 for compatibility
+             Contains: buttons, windows, layouts, graphics rendering -->
+        <javafx.version>21.0.2</javafx.version>
+        
+        <!-- JAVAFX MAVEN PLUGIN VERSION: 0.0.8
+             This plugin allows Maven to build and run JavaFX applications
+             Latest version for Java 21 compatibility -->
+        <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
+    </properties>
+    
+    <!-- ======================================== 
+         DEPENDENCIES
+         External libraries (JAR files) our project needs
+         Maven automatically downloads these from Maven Central Repository
+         Each dependency has: groupId, artifactId, version
+         
+         What are dependencies?
+         - Reusable code libraries others have written
+         - Instead of writing code from scratch, we use existing libraries
+         - Reduces development time and ensures quality
+         
+         Where do they come from?
+         - Maven Central Repository (online library of millions of JARs)
+         - Maven downloads them automatically during 'mvn compile'
+         - Stored in ~/.m2/repository on your computer
+         ======================================== -->
+    
+    <dependencies>
+        <!-- ========================================
+             DEPENDENCY 1: JAVAFX-CONTROLS
+             Purpose: UI components for graphical interfaces
+             Contains: Buttons, TextFields, Labels, ComboBox, etc.
+             Used in: LoginController, UserDashboard, AdminDashboard
+             Version: 21.0.2 (must match Java 21)
+             
+             Example components we use:
+             - Button: clickable buttons for actions
+             - TextField: text input boxes
+             - Label: display text
+             - TableView: display data in table format
+             - ListView: display lists
+             ======================================== -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>  <!-- Uses the property defined above -->
+        </dependency>
+        
+        <!-- ========================================
+             DEPENDENCY 2: JAVAFX-FXML
+             Purpose: Load XML layout files (.fxml files)
+             Files: login.fxml, user_dashboard.fxml, admin_dashboard.fxml
+             Benefits:
+             - Separates UI design from Java code
+             - UI can be edited without recompiling code
+             - FXMLLoader class loads .fxml at runtime
+             
+             Workflow:
+             1. Designer/developer creates .fxml file (UI layout)
+             2. Java code loads .fxml using FXMLLoader
+             3. @FXML annotation links XML components to Java variables
+             4. Event handlers (@FXML methods) respond to user interactions
+             ======================================== -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        
+        <!-- ========================================
+             DEPENDENCY 3: JAVAFX-GRAPHICS
+             Purpose: Low-level graphics rendering
+             Used by: Controls and FXML (internally)
+             Contains: Image rendering, coordinate systems, color handling
+             Note: Usually not directly used in application code
+                   but required for controls and FXML to work
+             ======================================== -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+    </dependencies>
+    
+    <!-- ======================================== 
+         BUILD CONFIGURATION
+         Plugins are tools Maven uses during the build process
+         Build phases (in order):
+         1. validate: Check project configuration
+         2. compile: Convert .java files to .class files
+         3. test: Run unit tests
+         4. package: Create JAR/WAR/etc file
+         5. deploy: Upload to repository
+         
+         Build Lifecycle:
+         Command: mvn clean package
+         Step 1: mvn clean → Delete target/ folder (clean slate)
+         Step 2: mvn compile → Run compiler plugin, create .class files
+         Step 3: mvn test → Run tests (skip if -DskipTests)
+         Step 4: mvn package → Run shade plugin, create JAR
+         Result: target/UserActivityMonitoringSystem-1.0-SNAPSHOT.jar
+         ======================================== -->
+    
+    <build>
+        <plugins>
+            <!-- ========================================
+                 PLUGIN 1: MAVEN-COMPILER-PLUGIN
+                 Purpose: Compile Java source code (.java) to bytecode (.class)
+                 Version: 3.11.0 (latest, handles Java 21)
+                 
+                 Configuration: <release>21</release>
+                 - Tells compiler to use Java 21 language features
+                 - Creates bytecode compatible with Java 21
+                 - Better than <source>/<target> because it handles module system
+                 
+                 What it does:
+                 Input: .java files in src/main/java/
+                 Processing: Validates syntax, checks types, compiles to bytecode
+                 Output: .class files in target/classes/
+                 
+                 Time Complexity: O(n) where n = number of source files (13 files)
+                 Typical compile time: 3-5 seconds
+                 ======================================== -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <!-- Using release=21 is modern approach for Java 21
+                         Advantages:
+                         - Single setting instead of separate source/target
+                         - Automatically handles module system (java 9+)
+                         - Recommended by Maven for Java 9+ projects -->
+                    <release>21</release>
+                </configuration>
+            </plugin>
+            
+            <!-- ========================================
+                 PLUGIN 2: JAVAFX-MAVEN-PLUGIN
+                 Purpose: Provides Maven goals to run JavaFX applications
+                 Version: 0.0.8
+                 
+                 Command: mvn javafx:run
+                 Effect: Runs the application directly from Maven
+                 
+                 Configuration: <mainClass>com.monitoring.MainApp</mainClass>
+                 - Tells the plugin which class has main() method
+                 - Entry point of application
+                 - Used when running 'mvn javafx:run' command
+                 
+                 Benefits:
+                 - Don't need to create complex run scripts
+                 - Maven handles module path setup automatically
+                 - Environment variables set correctly
+                 ======================================== -->
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>${javafx.maven.plugin.version}</version>
+                <configuration>
+                    <!-- Entry point: which class to run -->
+                    <mainClass>com.monitoring.MainApp</mainClass>
+                </configuration>
+            </plugin>
+            
+            <!-- ========================================
+                 PLUGIN 3: MAVEN-SHADE-PLUGIN
+                 Purpose: Create "fat JAR" with all dependencies included
+                 Version: 3.5.0
+                 
+                 What is a FAT JAR?
+                 - Normal JAR: Only contains your code (.class files)
+                   Problem: Needs all dependencies installed separately
+                 - Fat JAR: Contains your code + all dependencies
+                   Benefit: Single file, can run anywhere
+                 
+                 Execution phase: package (runs during mvn package)
+                 Goal: shade (package all JARs into one)
+                 
+                 Process:
+                 Input: Compiled .class files + dependency JARs
+                 Processing: Merge all JARs into single archive
+                 Output: UserActivityMonitoringSystem-1.0-SNAPSHOT.jar
+                 
+                 Size: ~50-100 MB (includes JavaFX libraries)
+                 
+                 Usage:
+                 java -jar UserActivityMonitoringSystem-1.0-SNAPSHOT.jar
+                 Result: Application starts without needing additional setup
+                 
+                 ManifestResourceTransformer:
+                 - Sets Main-Class in JAR manifest
+                 - Allows java -jar command to know which class to run
+                 - Similar to @MANIFEST in other build systems
+                 ======================================== -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <!-- Execute this plugin during package phase -->
+                        <phase>package</phase>
+                        <goals>
+                            <!-- shade goal: package everything into one JAR -->
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Transformers: How to handle special files -->
+                            <transformers>
+                                <!-- ManifestResourceTransformer: Sets manifest -->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <!-- What class has the main() method? -->
+                                    <mainClass>com.monitoring.MainApp</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <!-- ========================================
+         MAVEN BUILD COMMAND REFERENCE
+         ========================================
+         
+         mvn clean
+         - Deletes target/ folder
+         - Useful before fresh build
+         
+         mvn compile
+         - Compiles .java to .class
+         - Checks for syntax errors
+         - Time: 3-5 seconds
+         
+         mvn package
+         - Runs compile + shade
+         - Creates JAR file
+         - Time: 5-10 seconds
+         
+         mvn clean package
+         - Clean slate build
+         - Full compilation and packaging
+         - Time: 5-10 seconds
+         
+         mvn clean package -DskipTests
+         - Build without running unit tests
+         - Faster if you just want to compile
+         
+         mvn javafx:run
+         - Runs application directly
+         - Uses MainApp class
+         
+         Full Build Example:
+         $ mvn clean package -DskipTests
+         
+         Result:
+         target/UserActivityMonitoringSystem-1.0-SNAPSHOT.jar (50-100 MB)
+         
+         Run Example:
+         $ java -jar target/UserActivityMonitoringSystem-1.0-SNAPSHOT.jar
+         Result: Application window appears
+         ======================================== -->
+</project>

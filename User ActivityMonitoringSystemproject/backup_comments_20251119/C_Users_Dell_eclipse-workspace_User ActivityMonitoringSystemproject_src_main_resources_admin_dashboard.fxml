@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx/21"
+            fx:controller="com.monitoring.AdminDashboard"
+            style="-fx-background-color: #f5f5f5;">
+    <top>
+        <VBox spacing="10" style="-fx-background-color: #1a237e; -fx-padding: 15;">
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <padding>
+                    <Insets top="10" right="20" bottom="10" left="20" />
+                </padding>
+                <Label fx:id="adminInfo" text="Admin Dashboard" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="logoutBtn" text="Logout" style="-fx-font-size: 12px; -fx-padding: 8 25 8 25; -fx-background-color: #f57c00; -fx-text-fill: white; -fx-border-radius: 4; -fx-cursor: hand;" onAction="#onLogout" />
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 0 20 10 20;">
+                <TextField fx:id="searchField" promptText="Search by username, ip or action" prefWidth="250" style="-fx-font-size: 12px; -fx-padding: 8; -fx-border-radius: 4;" />
+                <Button fx:id="searchBtn" text="🔍 Search" style="-fx-font-size: 12px; -fx-padding: 8 20 8 20; -fx-background-color: #4caf50; -fx-text-fill: white; -fx-border-radius: 4; -fx-cursor: hand;" onAction="#onSearch" />
+                <Button fx:id="sortBtn" text="📊 Sort by Time" style="-fx-font-size: 12px; -fx-padding: 8 20 8 20; -fx-background-color: #2196f3; -fx-text-fill: white; -fx-border-radius: 4; -fx-cursor: hand;" onAction="#onSort" />
+                <Button fx:id="suspiciousBtn" text="⚠️ View Suspicious" style="-fx-font-size: 12px; -fx-padding: 8 20 8 20; -fx-background-color: #f44336; -fx-text-fill: white; -fx-border-radius: 4; -fx-cursor: hand;" onAction="#onViewSuspicious" />
+                <Button fx:id="addUserBtn" text="➕ Add User" style="-fx-font-size: 12px; -fx-padding: 8 20 8 20; -fx-background-color: #9c27b0; -fx-text-fill: white; -fx-border-radius: 4; -fx-cursor: hand;" onAction="#onAddUser" />
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <SplitPane orientation="VERTICAL" style="-fx-padding: 15;" dividerPositions="0.6">
+            <TableView fx:id="logsTable" style="-fx-font-size: 12px; -fx-border-color: #e0e0e0; -fx-border-width: 1;">
+                <columns>
+                    <TableColumn fx:id="colTime" text="Timestamp" prefWidth="200" />
+                    <TableColumn fx:id="colUser" text="User" prefWidth="150" />
+                    <TableColumn fx:id="colAction" text="Action" prefWidth="300" />
+                    <TableColumn fx:id="colIp" text="IP Address" prefWidth="150" />
+                    <TableColumn fx:id="colSeverity" text="Severity Level" prefWidth="100" />
+                </columns>
+            </TableView>
+            <HBox spacing="15" alignment="CENTER" style="-fx-padding: 15; -fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 1;">
+                <padding>
+                    <Insets top="15" right="15" bottom="15" left="15" />
+                </padding>
+                <VBox alignment="CENTER" spacing="5" style="-fx-padding: 10;">
+                    <Label text="Activity Analytics" style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #1a237e;" />
+                    <PieChart fx:id="analyticsChart" prefWidth="320" prefHeight="320" />
+                </VBox>
+                <VBox HBox.hgrow="ALWAYS" spacing="5" style="-fx-padding: 10;">
+                    <Label text="Activity Trends" style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #1a237e;" />
+                    <BarChart fx:id="activityBar" prefHeight="320">
+                        <xAxis>
+                            <CategoryAxis />
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis />
+                        </yAxis>
+                    </BarChart>
+                </VBox>
+            </HBox>
+        </SplitPane>
+    </center>
+</BorderPane>
+
