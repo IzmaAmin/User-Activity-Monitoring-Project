@@ -1,8 +1,8 @@
-📌 User Activity Monitoring System – GitHub Repository Description
+**📌 User Activity Monitoring System – GitHub Repository Description**
 
 A Java-based security application designed to monitor, record, and analyze user activities inside a system. Built using JavaFX, object-oriented principles, and custom data structures, this project provides a lightweight but effective solution for enhancing security, transparency, and accountability in digital environments.
 
-🔐 Overview
+**🔐 Overview**
 
 The User Activity Monitoring System is designed to address modern cybersecurity challenges such as unauthorized access, suspicious login attempts, and the lack of real-time monitoring in many systems.
 The application includes:
@@ -21,8 +21,8 @@ A Security Manager that detects repeated failed logins and locks accounts
 
 This project is ideal for academic learning, demonstrations, or as a foundation for advanced monitoring tools.
 
-🛠️ Key Features
-👤 User-Side
+**🛠️ Key Features
+👤 User-Side**
 
 Secure login with lockout after 5 failed attempts
 
@@ -32,7 +32,7 @@ Personal dashboard to view/add documents
 
 All actions (login, logout, document actions) are recorded as activity logs
 
-🛡️ Admin-Side
+**🛡️ Admin-Side**
 
 Hidden admin panel (Username: SIMI, Password: SIMIGROUP123)
 
@@ -50,7 +50,7 @@ Search and sort logs using custom algorithms
 
 Navigate logs via doubly linked list
 
-📚 Tech Stack
+**📚 Tech Stack**
 
 Java (OOP)
 
@@ -70,7 +70,7 @@ Search & Sorting Algorithms
 
 Recursion for anomaly detection
 
-📈 Performance Highlights
+**📈 Performance Highlights**
 
 O(1) insertion into activity log (linked list)
 
@@ -80,7 +80,7 @@ Sorting logs in O(n log n) using QuickSort/MergeSort
 
 Effective anomaly detection with recursive logic
 
-🧪 Project Outcomes
+**🧪 Project Outcomes**
 
 Successful tracking of user actions
 
@@ -100,11 +100,11 @@ OOP
 
 Cybersecurity fundamentals
 
-🚀 Future Improvements
+**🚀 Future Improvements**
 
 This project provides a solid foundation and can be expanded with advanced features such as:
 
-🔒 Advanced Security
+**🔒 Advanced Security**
 
 Password hashing (BCrypt/SHA-256)
 
@@ -112,7 +112,7 @@ Two-factor authentication (2FA)
 
 Real-time system notifications
 
-🗄️ Database Integration
+**🗄️ Database Integration**
 
 Replace file/array-based storage with:
 
@@ -126,7 +126,7 @@ Persistent activity logs
 
 Better scalability
 
-📊 Enhanced Admin Tools
+**📊 Enhanced Admin Tools**
 
 Data visualization dashboards
 
@@ -136,13 +136,13 @@ Export logs as PDF/CSV
 
 Role-based access controls (RBAC)
 
-🔌 System Integration
+**🔌 System Integration**
 
 Integration with enterprise Active Directory / LDAP
 
 API layer for connecting with other security tools
 
-💻 UI/UX Improvements
+**💻 UI/UX Improvements**
 
 Modern UI with CSS styling
 
@@ -150,7 +150,7 @@ Dark/Light mode support
 
 Responsive layouts
 
-📄 References
+**📄 References**
 
 Oracle JavaFX Documentation
 
@@ -159,3 +159,11 @@ Data Structures & Algorithms in Java – Goodrich
 Cisco Cybersecurity Essentials
 
 Oracle Java SE API Documentation
+
+**🪪 Author**
+Izma Amin
+📧 izma.amin.k@gmail.com
+GitHub: Izma Amin
+
+**📜 License**
+This project is open-source and available under the MIT License.
